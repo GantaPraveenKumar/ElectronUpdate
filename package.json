@@ -1,6 +1,6 @@
 {
   "name": "electronupdate",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A Sample appication for auto update",
   "main": "main.js",
   "scripts": {

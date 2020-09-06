@@ -5,9 +5,7 @@ let win
 
 
 const dispatch = (data) => {
-  ipcMain.on('message', (event) => {
-    event.sender.send('message', data);
-  });
+  win.webContents.send('message', data)
 }
 
 const createDefaultWindow = () => {
@@ -56,9 +54,7 @@ autoUpdater.on('error', (err) => {
 })
 
 autoUpdater.on('download-progress', (progressObj) => {
-    ipcMain.on('download-progress', (event) => {
-      event.sender.send('download-progress', progressObj.percent);
-    });
+  win.webContents.send('download-progress', progressObj.percent)
 })
 
 autoUpdater.on('update-downloaded', (info) => {

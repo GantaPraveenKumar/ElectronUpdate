@@ -1,35 +1,38 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow,ipcMain } = require('electron')
 const { autoUpdater } = require("electron-updater")
 
 let win
 
+
 const dispatch = (data) => {
-  win.webContents.send('message', data)
+  ipcMain.on('message', (event) => {
+    event.sender.send('message', data);
+  });
 }
 
 const createDefaultWindow = () => {
-  win = new BrowserWindow()
-
+  win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
   win.on('closed', () => {
     win = null
   })
-
   win.loadFile('index.html')
-
   return win
 }
 
 app.on('ready', () => {
-  
   createDefaultWindow()
-
-  autoUpdater.checkForUpdates();
-
-  win.webContents.on('did-finish-load', () => {
-    win.webContents.send('version', app.getVersion())
-  })
-
+  autoUpdater.checkForUpdatesAndNotify();
 })
+
+ipcMain.on('version', (event) => {
+  event.sender.send('version',app.getVersion());
+});
 
 app.on('window-all-closed', () => {
   app.quit()
@@ -53,8 +56,9 @@ autoUpdater.on('error', (err) => {
 })
 
 autoUpdater.on('download-progress', (progressObj) => {
-    win.webContents.send('download-progress', progressObj.percent)
-
+    ipcMain.on('download-progress', (event) => {
+      event.sender.send('download-progress', progressObj.percent);
+    });
 })
 
 autoUpdater.on('update-downloaded', (info) => {

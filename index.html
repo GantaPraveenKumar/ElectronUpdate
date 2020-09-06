@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Electron</title>
-    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">  </head>
-  <body>
-    <div class="w3-container">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Electron</title>
+  <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body>
+  <div class="w3-container">
 
     <h1 style="color:blueviolet">Electron App - New</h1>
     <h3>Brand new app</h3>
@@ -24,8 +27,34 @@
 
   </div>
   <script>
-    require('renderer')
+    const { ipcRenderer } = require('electron');
+  
+    const select = selector => document.querySelector(selector)
+
+    let container = select('#messages')
+    let progressBar = select('#progressBar')
+    let version = select('#version')
+
+    ipcRenderer.send('message');
+    ipcRenderer.on('message', (event, text) => {
+
+      let message = document.createElement('div')
+      message.innerHTML = text
+      container.appendChild(message)
+
+    })
+
+    ipcRenderer.send('version');
+    ipcRenderer.on('version', (event, text) => {
+      version.innerText = text
+    })
+
+    ipcRenderer.send('download-progress');
+    ipcRenderer.on('download-progress', (event, text) => {
+      progressBar.style.width = `${text}%`
+    })
   </script>
-    </div>
-  </body>
+  </div>
+</body>
+
 </html>

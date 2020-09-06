@@ -1,0 +1,49 @@
+{
+  "name": "electronupdate",
+  "version": "1.0.0",
+  "description": "A Sample appication for auto update",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps",
+    "deploy": "GH_TOKEN=9db5dbcc909658cdecf335d45962bf872278c671 electron-builder build --publish always"
+  },
+  "build": {
+    "appId": "com.nfcsolutions.iconcustomer",
+    "productName": "MYQUIX Homeowner",
+    "copyright": "Copyright © year GANTA PRAVEEN KUMAR",
+    "mac": {
+      "category": "Business.app-category.developer-tools",
+      "type": "distribution"
+    },
+    "publish": [
+      "github"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GantaPraveenKumar/ElectronUpdate.git"
+  },
+  "keywords": [
+    "Auto",
+    "update",
+    "Electron",
+    "update"
+  ],
+  "author": "Ganta praveen Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GantaPraveenKumar/ElectronUpdate/issues"
+  },
+  "homepage": "https://github.com/GantaPraveenKumar/ElectronUpdate#readme",
+  "devDependencies": {
+    "electron": "^10.1.1",
+    "electron-builder": "^22.8.0"
+  },
+  "dependencies": {
+    "electron-updater": "^4.3.4"
+  }
+}

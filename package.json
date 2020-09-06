@@ -9,7 +9,7 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "postinstall": "electron-builder install-app-deps",
-    "deploy": "GH_TOKEN=9db5dbcc909658cdecf335d45962bf872278c671 electron-builder build --publish always"
+    "release": "electron-builder build -p always"
   },
   "build": {
     "appId": "com.nfcsolutions.iconcustomer",

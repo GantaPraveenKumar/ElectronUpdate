@@ -23,8 +23,7 @@ app.on('ready', () => {
   
   createDefaultWindow()
 
-  autoUpdater.setFeedURL('https://github.com/GantaPraveenKumar/ElectronAutoUpdate/releases')
-  autoUpdater.checkForUpdates()
+  autoUpdater.checkForUpdates();
 
   win.webContents.on('did-finish-load', () => {
     win.webContents.send('version', app.getVersion())

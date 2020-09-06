@@ -104,3 +104,4 @@ dist
 .tern-port
 
 electron-builder.yml
+dev-app-update.yml
